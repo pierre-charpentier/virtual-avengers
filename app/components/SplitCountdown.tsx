@@ -18,7 +18,7 @@ const getFormattedTimeLeft = () => {
 
   return formatDuration(duration, {
     format: ["days", "hours", "minutes", "seconds"],
-    zero: true
+    zero: true,
   });
 };
 
@@ -33,7 +33,7 @@ export default function SplitCountdown() {
     return () => {
       clearInterval(intervalId);
     };
-  });
+  }, [setTimeLeft]);
 
-  return timeLeft;
+  return <span suppressHydrationWarning>{timeLeft}</span>;
 }
