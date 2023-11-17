@@ -23,7 +23,7 @@ const getFormattedTimeLeft = () => {
 };
 
 export default function SplitCountdown() {
-  const [timeLeft, setTimeLeft] = useState(getFormattedTimeLeft());
+  const [timeLeft, setTimeLeft] = useState("-");
 
   useEffect(() => {
     const intervalId = setInterval(() => {
