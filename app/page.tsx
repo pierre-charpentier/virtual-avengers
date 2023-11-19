@@ -1,5 +1,6 @@
 import SplitCountdown from "./components/SplitCountdown";
-import { SummonerCard } from "./components/SummonerCard";
+import { SummonerCard } from "./components/SummonerCard/SummonerCard";
+import classes from "./page.module.css";
 
 const vaSummonerIds = [
   ["Xeno", "28495gnPj-wb8CnECUTiIKwabQcI9cdRGBnGiDg4k6W4NgY"],
@@ -11,29 +12,13 @@ const vaSummonerIds = [
 
 export default async function Home() {
   return (
-    <main
-      style={{
-        marginTop: "100px",
-        textAlign: "center",
-      }}
-    >
+    <main className={classes.container}>
+      <h1 className={classes.title}>Virtual Avengers</h1>
       <p>Split ends in:</p>
-      <h1
-        style={{
-          fontVariant: "tabular-nums",
-        }}
-      >
+      <h2 className={classes.countdown}>
         <SplitCountdown />
-      </h1>
-      <div
-        style={{
-          margin: "100px auto 0 auto",
-          width: "75%",
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
-      >
+      </h2>
+      <div className={classes.team}>
         {vaSummonerIds.map(([realName, summonerId]) => {
           return (
             <SummonerCard
