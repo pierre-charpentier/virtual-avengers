@@ -1,0 +1,28 @@
+.container {
+  text-align: center;
+}
+
+.rank {
+  margin-bottom: 30px;
+  font-size: larger;
+}
+
+.wins {
+  font-weight: bold;
+  color: #00bba3;
+}
+
+.losses {
+  font-weight: bold;
+  color: #e84057;
+}
+
+.tier-icon {
+  z-index: -30;
+  box-sizing: border-box;
+  width: 128px;
+  height: 128px;
+  object-fit: cover;
+  clip-path: circle(20% at 50% 50%);
+  transform: scale(250%);
+}
