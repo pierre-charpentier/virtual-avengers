@@ -12,7 +12,7 @@ export async function getRankedDataForSummoner(
 
   url.searchParams.append("api_key", API_KEY);
 
-  const request = await fetch(url);
+  const request = await fetch(url, { next: { revalidate: 60 * 60 } });
 
   return await request.json();
 }
@@ -24,7 +24,7 @@ export async function getSummonerDataFromSummonerName(
 
   url.searchParams.append("api_key", API_KEY);
 
-  const request = await fetch(url);
+  const request = await fetch(url, { next: { revalidate: 60 * 60 } });
 
   return await request.json();
 }
@@ -36,7 +36,7 @@ export async function getSummonerDataFromSummonerId(
 
   url.searchParams.append("api_key", API_KEY);
 
-  const request = await fetch(url);
+  const request = await fetch(url, { next: { revalidate: 60 * 60 * 24 } });
 
   return await request.json();
 }
