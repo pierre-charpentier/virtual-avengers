@@ -17,13 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <nav>
-          <Link href={"/"}>Home</Link>
-          <Link href={"/find-summoner-id"}> FindSummonerId</Link>
-        </nav>
-        {children}
-      </body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }
