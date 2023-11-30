@@ -34,14 +34,21 @@ export async function SummonerCard({
         <h2>{soloRankedData?.summonerName}</h2>
       </a>
       <p>{realName}</p>
+      {soloRankedData?.tier ? (
       <Image
-        src={`/emblems/emblem-${soloRankedData?.tier.toLowerCase()}.png`}
+          src={
+            emblemImages[
+              soloRankedData.tier.toLowerCase() as Lowercase<
+                typeof soloRankedData.tier
+              >
+            ]
+          }
         alt="Tier Icon"
         width={640}
         height={360}
         className={classes["tier-icon"]}
       />
-      <p className={classes["rank"]}>
+      ) : null}
         {soloRankedData?.tier} {soloRankedData?.rank} -{" "}
         {soloRankedData?.leaguePoints} LP
       </p>

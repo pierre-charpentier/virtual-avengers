@@ -4,7 +4,17 @@ declare namespace RiotGamesAPI {
     type LeagueEntryDto = {
       leagueId: string;
       queueType: string;
-      tier: string;
+      tier:
+        | "BRONZE"
+        | "CHALLENGER"
+        | "DIAMOND"
+        | "EMERALD"
+        | "GOLD"
+        | "GRANDMASTER"
+        | "IRON"
+        | "MASTER"
+        | "PLATINUM"
+        | "SILVER";
       rank: string;
       summonerId: string;
       summonerName: string;
