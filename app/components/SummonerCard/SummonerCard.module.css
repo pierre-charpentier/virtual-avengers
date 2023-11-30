@@ -5,6 +5,16 @@
 .rank {
   margin-bottom: 30px;
   font-size: larger;
+  text-align: left;
+}
+
+.rank-container {
+  margin-bottom: 20px;
+}
+
+.rank-title {
+  text-align: left;
+  color: grey;
 }
 
 .wins {
@@ -18,11 +28,12 @@
 }
 
 .tier-icon {
+  margin-top: 10px;
   z-index: -30;
   box-sizing: border-box;
   width: 128px;
   height: 128px;
   object-fit: cover;
-  clip-path: circle(20% at 50% 50%);
+  clip-path: circle(25% at 50% 50%);
   transform: scale(250%);
 }

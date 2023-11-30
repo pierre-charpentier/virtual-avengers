@@ -4,6 +4,7 @@ import {
 } from "@/app//lib/riot-games-api";
 import Image from "next/image";
 import classes from "./SummonerCard.module.css";
+import emblemImages from "./emblemImages";
 
 export async function SummonerCard({
   realName,
@@ -19,6 +20,10 @@ export async function SummonerCard({
     (data) => data.queueType === "RANKED_SOLO_5x5"
   );
 
+  const flexRankedData = rankedData.find(
+    (data) => data.queueType === "RANKED_FLEX_SR"
+  );
+
   return (
     <div className={classes["container"]}>
       <Image
@@ -31,11 +36,11 @@ export async function SummonerCard({
         href={`https://www.op.gg/summoners/euw/${summonerData.name}`}
         target="_blank"
       >
-        <h2>{soloRankedData?.summonerName}</h2>
+        <h2>{summonerData.name}</h2>
       </a>
       <p>{realName}</p>
       {soloRankedData?.tier ? (
-      <Image
+        <Image
           src={
             emblemImages[
               soloRankedData.tier.toLowerCase() as Lowercase<
@@ -43,16 +48,34 @@ export async function SummonerCard({
               >
             ]
           }
-        alt="Tier Icon"
-        width={640}
-        height={360}
-        className={classes["tier-icon"]}
-      />
+          alt="Tier Icon"
+          width={640}
+          height={360}
+          className={classes["tier-icon"]}
+        />
       ) : null}
-        {soloRankedData?.tier} {soloRankedData?.rank} -{" "}
-        {soloRankedData?.leaguePoints} LP
-      </p>
-      <Winrate wins={soloRankedData?.wins} losses={soloRankedData?.losses} />
+      <div className={classes["rank-container"]}>
+        <p className={classes["rank-title"]}>Solo</p>
+        <div className={classes["rank"]}>
+          {soloRankedData?.tier} {soloRankedData?.rank} -{" "}
+          {soloRankedData?.leaguePoints} LP
+          <Winrate
+            wins={soloRankedData?.wins}
+            losses={soloRankedData?.losses}
+          />
+        </div>
+      </div>
+      <div className={classes["rank-container"]}>
+        <p className={classes["rank-title"]}>Flex</p>
+        <div className={classes["rank"]}>
+          {flexRankedData?.tier} {flexRankedData?.rank} -{" "}
+          {flexRankedData?.leaguePoints} LP
+          <Winrate
+            wins={flexRankedData?.wins}
+            losses={flexRankedData?.losses}
+          />
+        </div>
+      </div>
     </div>
   );
 }
