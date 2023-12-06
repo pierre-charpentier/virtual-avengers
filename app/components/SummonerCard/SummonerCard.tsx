@@ -1,20 +1,34 @@
 import {
+  getAccountByRiotId,
   getRankedDataForSummoner,
+  getSummonerDataFromPuuid,
   getSummonerDataFromSummonerId,
 } from "@/app//lib/riot-games-api";
 import Image from "next/image";
 import classes from "./SummonerCard.module.css";
 import emblemImages from "./emblemImages";
 
+export async function getSummonerFromRiotId(
+  gameName: string,
+  tagLine: string
+): Promise<RiotGamesAPI.Summoner.SummonerDto> {
+  const account = await getAccountByRiotId(gameName, tagLine);
+
+  return await getSummonerDataFromPuuid(account.puuid);
+}
+
 export async function SummonerCard({
+  gameName,
   realName,
-  summonerId,
+  tagLine,
 }: {
+  gameName: string;
   realName: string;
-  summonerId: string;
+  tagLine: string;
 }) {
-  const summonerData = await getSummonerDataFromSummonerId(summonerId);
-  const rankedData = await getRankedDataForSummoner(summonerId);
+  const summoner = await getSummonerFromRiotId(gameName, tagLine);
+  const summonerData = await getSummonerDataFromSummonerId(summoner.id);
+  const rankedData = await getRankedDataForSummoner(summoner.id);
 
   const soloRankedData = rankedData.find(
     (data) => data.queueType === "RANKED_SOLO_5x5"

@@ -1,13 +1,16 @@
+import { Suspense } from "react";
 import SplitCountdown from "./components/SplitCountdown";
 import { SummonerCard } from "./components/SummonerCard/SummonerCard";
 import classes from "./page.module.css";
 
-const vaSummonerIds = [
-  ["Xeno", "28495gnPj-wb8CnECUTiIKwabQcI9cdRGBnGiDg4k6W4NgY"],
-  ["Caillou", "jy8xwIWsUBQxI0QgPYm8Ba2gv5SWhXAdyBWc71jO0CH2_Nk:"],
-  ["Teijha", "6Sx1jj9-uBMWZgnnWYycMf3UTVsu5TreN8s9sova_Y66Il0"],
-  ["Xelondeur", "t977vJYTUbIyzUAZ-G3LG9s5cY9UAELCIBRZG8FnchYzTsA"],
-  ["Oxomo", "46lUe2QUoZUm_dY0dWPRYuEKbhoednJOch9yOLGStcH4C_A"],
+const vaGameNamesTagLines: ReadonlyArray<
+  [string, { gameName: string; tagLine: string }]
+> = [
+  ["Xeno", { gameName: "Xnosevill", tagLine: "EUW" }],
+  ["Caillou", { gameName: "vA Caillou", tagLine: "1234" }],
+  ["Teijha", { gameName: "vA Teijha", tagLine: "EUW" }],
+  ["Xelondeur", { gameName: "Oxomo Egirl", tagLine: "EUW" }],
+  ["Oxomo", { gameName: "vA Oxomo", tagLine: "EUW" }],
 ];
 
 export default async function Home() {
@@ -19,13 +22,15 @@ export default async function Home() {
         <SplitCountdown />
       </h2>
       <div className={classes.team}>
-        {vaSummonerIds.map(([realName, summonerId]) => {
+        {vaGameNamesTagLines.map(([realName, { gameName, tagLine }]) => {
           return (
-            <SummonerCard
-              key={summonerId}
-              realName={realName}
-              summonerId={summonerId}
-            />
+            <Suspense key={`${gameName}#${tagLine}`} fallback={"Hello"}>
+              <SummonerCard
+                realName={realName}
+                gameName={gameName}
+                tagLine={tagLine}
+              />
+            </Suspense>
           );
         })}
       </div>
