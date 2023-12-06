@@ -68,26 +68,28 @@ export async function SummonerCard({
           className={classes["tier-icon"]}
         />
       ) : null}
-      <div className={classes["rank-container"]}>
-        <p className={classes["rank-title"]}>Solo</p>
-        <div className={classes["rank"]}>
-          {soloRankedData?.tier} {soloRankedData?.rank} -{" "}
-          {soloRankedData?.leaguePoints} LP
-          <Winrate
-            wins={soloRankedData?.wins}
-            losses={soloRankedData?.losses}
-          />
+      <div className={classes["ranks-container"]}>
+        <div className={classes["rank-container"]}>
+          <p className={classes["rank-title"]}>Solo</p>
+          <div className={classes["rank"]}>
+            {soloRankedData?.tier} {soloRankedData?.rank} -{" "}
+            {soloRankedData?.leaguePoints} LP
+            <Winrate
+              wins={soloRankedData?.wins}
+              losses={soloRankedData?.losses}
+            />
+          </div>
         </div>
-      </div>
-      <div className={classes["rank-container"]}>
-        <p className={classes["rank-title"]}>Flex</p>
-        <div className={classes["rank"]}>
-          {flexRankedData?.tier} {flexRankedData?.rank} -{" "}
-          {flexRankedData?.leaguePoints} LP
-          <Winrate
-            wins={flexRankedData?.wins}
-            losses={flexRankedData?.losses}
-          />
+        <div className={classes["rank-container"]}>
+          <p className={classes["rank-title"]}>Flex</p>
+          <div className={classes["rank"]}>
+            {flexRankedData?.tier} {flexRankedData?.rank} -{" "}
+            {flexRankedData?.leaguePoints} LP
+            <Winrate
+              wins={flexRankedData?.wins}
+              losses={flexRankedData?.losses}
+            />
+          </div>
         </div>
       </div>
     </div>

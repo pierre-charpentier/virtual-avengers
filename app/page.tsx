@@ -24,13 +24,12 @@ export default async function Home() {
       <div className={classes.team}>
         {vaGameNamesTagLines.map(([realName, { gameName, tagLine }]) => {
           return (
-            <Suspense key={`${gameName}#${tagLine}`} fallback={"Hello"}>
-              <SummonerCard
-                realName={realName}
-                gameName={gameName}
-                tagLine={tagLine}
-              />
-            </Suspense>
+            <SummonerCard
+              key={`${gameName}#${tagLine}`}
+              realName={realName}
+              gameName={gameName}
+              tagLine={tagLine}
+            />
           );
         })}
       </div>

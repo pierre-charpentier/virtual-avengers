@@ -1,15 +1,30 @@
 .container {
   text-align: center;
+  border: 1px solid #aaaaaa;
+  border-radius: 15px;
+  padding: 5%;
+  background-color: #222222;
 }
 
 .rank {
-  margin-bottom: 30px;
   font-size: larger;
   text-align: left;
 }
 
-.rank-container {
-  margin-bottom: 20px;
+@media (width <= 700px) {
+  .ranks-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+  }
+}
+
+@media (width > 700px) {
+  .ranks-container {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-gap: 20px;
+  }
 }
 
 .rank-title {
