@@ -1,9 +1,11 @@
 .container {
   text-align: center;
-  border: 1px solid #aaaaaa;
-  border-radius: 15px;
+  border: 1px solid rgba(100, 100, 100, 0.4);
   padding: 5%;
-  background-color: #222222;
+}
+
+.container:hover {
+  background-color: #191919;
 }
 
 .rank {

@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import SplitCountdown from "./components/SplitCountdown";
 import { SummonerCard } from "./components/SummonerCard/SummonerCard";
 import classes from "./page.module.css";
