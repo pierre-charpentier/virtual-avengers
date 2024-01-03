@@ -9,7 +9,7 @@ export default function FindSummonerId() {
   });
 
   return (
-    <form action={handleSubmit}>
+    <form className="mt-20" action={handleSubmit}>
       <input type="text" name="summoner-name" id="summoner-name" />
       <button type="submit">Search</button>
       <p>{formState.summonerId ?? "Not found"}</p>

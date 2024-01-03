@@ -1,4 +1,4 @@
-import Env from "@/app/lib/env";
+import Env from "@/lib/env";
 
 const API_KEY = Env.RIOT_GAMES_API_KEY;
 
