@@ -1,6 +1,6 @@
 "use server";
 
-import { getSummonerDataFromSummonerName } from "@/app/lib/riot-games-api";
+import { getSummonerDataFromSummonerName } from "@/lib/riot-games-api";
 import { z } from "zod";
 
 export async function handleFindSummonerIdForm(
