@@ -14,11 +14,11 @@ const vaGameNamesTagLines: ReadonlyArray<
 
 export default async function Home() {
   return (
-    <main className="mt-6 text-center md:mt-12">
+    <main className="mt-6 text-center md:mt-12 2xl:mt-24">
       <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
         Virtual Avengers
       </h1>
-      <div className="grid w-4/5 ml-auto mr-auto mt-12 2xl:mt-24 grid-cols-1 2xl:grid-cols-5 sm:grid-cols-2 gap-8">
+      <div className="grid w-11/12 ml-auto mr-auto mt-6 md:mt-12 2xl:mt-24 grid-cols-1 2xl:grid-cols-5 sm:grid-cols-2 gap-8">
         {vaGameNamesTagLines.map(([realName, { gameName, tagLine }]) => {
           return (
             <SummonerCard
