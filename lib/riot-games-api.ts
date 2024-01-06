@@ -1,4 +1,5 @@
 import Env from "@/lib/env";
+import PThrottle from "p-throttle";
 
 const API_KEY = Env.RIOT_GAMES_API_KEY;
 
@@ -8,7 +9,10 @@ const RG_API_URLS = {
   SUMMONER: "https://euw1.api.riotgames.com/lol/summoner/v4/summoners/",
 };
 
-export async function getRankedDataForSummoner(
+// Prevent overthrowing the API requests limit
+const throttle = PThrottle({ interval: 1000, limit: 20 });
+
+async function getRankedDataForSummonerFunc(
   summonerId: string
 ): Promise<ReadonlyArray<RiotGamesAPI.League.LeagueEntryDto>> {
   const url = new URL(`by-summoner/${summonerId}`, RG_API_URLS.LEAGUE);
@@ -22,7 +26,9 @@ export async function getRankedDataForSummoner(
   return await request.json();
 }
 
-export async function getSummonerDataFromSummonerName(
+export const getRankedDataForSummoner = throttle(getRankedDataForSummonerFunc);
+
+async function getSummonerDataFromSummonerNameFunc(
   summonerName: string
 ): Promise<RiotGamesAPI.Summoner.SummonerDto> {
   const url = new URL(`by-name/${summonerName}`, RG_API_URLS.SUMMONER);
@@ -36,7 +42,11 @@ export async function getSummonerDataFromSummonerName(
   return await request.json();
 }
 
-export async function getSummonerDataFromSummonerId(
+export const getSummonerDataFromSummonerName = throttle(
+  getSummonerDataFromSummonerNameFunc
+);
+
+async function getSummonerDataFromSummonerIdFunc(
   summonerId: string
 ): Promise<RiotGamesAPI.Summoner.SummonerDto> {
   const url = new URL(summonerId, RG_API_URLS.SUMMONER);
@@ -50,7 +60,11 @@ export async function getSummonerDataFromSummonerId(
   return await request.json();
 }
 
-export async function getSummonerDataFromPuuid(
+export const getSummonerDataFromSummonerId = throttle(
+  getSummonerDataFromSummonerIdFunc
+);
+
+async function getSummonerDataFromPuuidFunc(
   puuid: string
 ): Promise<RiotGamesAPI.Summoner.SummonerDto> {
   const url = new URL(`by-puuid/${puuid}`, RG_API_URLS.SUMMONER);
@@ -64,7 +78,9 @@ export async function getSummonerDataFromPuuid(
   return await request.json();
 }
 
-export async function getAccountByRiotId(
+export const getSummonerDataFromPuuid = throttle(getSummonerDataFromPuuidFunc);
+
+async function getAccountByRiotIdFunc(
   gameName: string,
   tagLine: string
 ): Promise<RiotGamesAPI.Account.AccountDto> {
@@ -78,3 +94,5 @@ export async function getAccountByRiotId(
 
   return await request.json();
 }
+
+export const getAccountByRiotId = throttle(getAccountByRiotIdFunc);
