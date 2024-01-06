@@ -5,7 +5,7 @@ import classes from "./page.module.css";
 const vaGameNamesTagLines: ReadonlyArray<
   [string, { gameName: string; tagLine: string }]
 > = [
-  ["Xeno", { gameName: "Xnosevill", tagLine: "EUW" }],
+  ["Xeno", { gameName: "vA Blackbeard", tagLine: "EUW" }],
   ["Caillou", { gameName: "vA Caillou", tagLine: "1234" }],
   ["Teijha", { gameName: "vA Teijha", tagLine: "EUW" }],
   ["Xelondeur", { gameName: "Oxomo Egirl", tagLine: "EUW" }],
