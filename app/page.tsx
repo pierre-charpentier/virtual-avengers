@@ -1,6 +1,4 @@
-import SplitCountdown from "../components/SplitCountdown";
 import { SummonerCard } from "../components/SummonerCard/SummonerCard";
-import classes from "./page.module.css";
 
 const vaGameNamesTagLines: ReadonlyArray<
   [string, { gameName: string; tagLine: string }]
