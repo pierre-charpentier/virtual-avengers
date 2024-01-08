@@ -47,7 +47,7 @@ export async function SummonerCard({
 
   return (
     <Card>
-      <CardHeader className="border">
+      <CardHeader className="border-b">
         <a
           href={`https://www.op.gg/summoners/euw/${summonerData.name}`}
           target="_blank"
