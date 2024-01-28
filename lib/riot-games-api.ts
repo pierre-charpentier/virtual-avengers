@@ -5,6 +5,7 @@ const API_KEY = Env.RIOT_GAMES_API_KEY;
 
 const RG_API_URLS = {
   ACCOUNT: "https://europe.api.riotgames.com/riot/account/v1/accounts/",
+  CLASH: "https://euw1.api.riotgames.com/lol/clash/v1/",
   LEAGUE: "https://euw1.api.riotgames.com/lol/league/v4/entries/",
   SUMMONER: "https://euw1.api.riotgames.com/lol/summoner/v4/summoners/",
 };
@@ -96,3 +97,19 @@ async function getAccountByRiotIdFunc(
 }
 
 export const getAccountByRiotId = throttle(getAccountByRiotIdFunc);
+
+async function getTournamentsFunc(): Promise<
+  ReadonlyArray<RiotGamesAPI.Clash.TournamentDto>
+> {
+  const url = new URL("tournaments", RG_API_URLS.CLASH);
+
+  url.searchParams.append("api_key", API_KEY);
+
+  const request = await fetch(url, {
+    next: { revalidate: 86400 /* one day */ },
+  });
+
+  return await request.json();
+}
+
+export const getTournaments = throttle(getTournamentsFunc);
