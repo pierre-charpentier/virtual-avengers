@@ -6,36 +6,24 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import {
-  getAccountByRiotId,
   getRankedDataForSummoner,
   getSummonerDataFromPuuid,
-  getSummonerDataFromSummonerId,
 } from "@/lib/riot-games-api";
 import Image from "next/image";
 import emblemImages from "./emblemImages";
 import { ArrowTopRightIcon } from "@radix-ui/react-icons";
 
-export async function getSummonerFromRiotId(
-  gameName: string,
-  tagLine: string
-): Promise<RiotGamesAPI.Summoner.SummonerDto> {
-  const account = await getAccountByRiotId(gameName, tagLine);
-
-  return await getSummonerDataFromPuuid(account.puuid);
-}
-
 export async function SummonerCard({
   gameName,
-  realName,
+  puuid,
   tagLine,
 }: {
   gameName: string;
-  realName: string;
+  puuid: string;
   tagLine: string;
 }) {
-  const summoner = await getSummonerFromRiotId(gameName, tagLine);
-  const summonerData = await getSummonerDataFromSummonerId(summoner.id);
-  const rankedData = await getRankedDataForSummoner(summoner.id);
+  const summonerData = await getSummonerDataFromPuuid(puuid);
+  const rankedData = await getRankedDataForSummoner(summonerData.id);
 
   const soloRankedData = rankedData.find(
     (data) => data.queueType === "RANKED_SOLO_5x5"
@@ -55,9 +43,6 @@ export async function SummonerCard({
         >
           {gameName}
         </a>
-        <h3 className="scroll-m-20 text-lg text-muted-foreground tracking-tight">
-          {realName}
-        </h3>
       </CardHeader>
       <CardContent>
         {soloRankedData?.tier ? (

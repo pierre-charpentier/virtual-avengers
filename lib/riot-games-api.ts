@@ -29,42 +29,6 @@ async function getRankedDataForSummonerFunc(
 
 export const getRankedDataForSummoner = throttle(getRankedDataForSummonerFunc);
 
-async function getSummonerDataFromSummonerNameFunc(
-  summonerName: string
-): Promise<RiotGamesAPI.Summoner.SummonerDto> {
-  const url = new URL(`by-name/${summonerName}`, RG_API_URLS.SUMMONER);
-
-  url.searchParams.append("api_key", API_KEY);
-
-  const request = await fetch(url, {
-    next: { revalidate: 3600 /* an hour */ },
-  });
-
-  return await request.json();
-}
-
-export const getSummonerDataFromSummonerName = throttle(
-  getSummonerDataFromSummonerNameFunc
-);
-
-async function getSummonerDataFromSummonerIdFunc(
-  summonerId: string
-): Promise<RiotGamesAPI.Summoner.SummonerDto> {
-  const url = new URL(summonerId, RG_API_URLS.SUMMONER);
-
-  url.searchParams.append("api_key", API_KEY);
-
-  const request = await fetch(url, {
-    next: { revalidate: 86400 /* one day */ },
-  });
-
-  return await request.json();
-}
-
-export const getSummonerDataFromSummonerId = throttle(
-  getSummonerDataFromSummonerIdFunc
-);
-
 async function getSummonerDataFromPuuidFunc(
   puuid: string
 ): Promise<RiotGamesAPI.Summoner.SummonerDto> {

@@ -1,16 +1,7 @@
 import { getTournaments } from "@/lib/riot-games-api";
+import { summoners } from "@/lib/summoners";
 import { format } from "date-fns";
 import { SummonerCard } from "../components/SummonerCard/SummonerCard";
-
-const vaGameNamesTagLines: ReadonlyArray<
-  [string, { gameName: string; tagLine: string }]
-> = [
-  ["Xeno", { gameName: "vA Blackbeard", tagLine: "EUW" }],
-  ["Caillou", { gameName: "vA Caillou", tagLine: "1234" }],
-  ["Teijha", { gameName: "vA Teijha", tagLine: "EUW" }],
-  ["Xelondeur", { gameName: "Oxomo Egirl", tagLine: "EUW" }],
-  ["Oxomo", { gameName: "vA Oxomo", tagLine: "EUW" }],
-];
 
 export default async function Home() {
   const tournaments = await getTournaments();
@@ -33,13 +24,13 @@ export default async function Home() {
         ))
       )}
       <div className="grid w-11/12 ml-auto mr-auto mt-6 lg:mt-12 grid-cols-1 2xl:grid-cols-5 sm:grid-cols-2 gap-8">
-        {vaGameNamesTagLines.map(([realName, { gameName, tagLine }]) => {
+        {summoners.map(({ gameName, tagLine, puuid }) => {
           return (
             <SummonerCard
               key={`${gameName}#${tagLine}`}
-              realName={realName}
               gameName={gameName}
               tagLine={tagLine}
+              puuid={puuid}
             />
           );
         })}
