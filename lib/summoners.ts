@@ -1,4 +1,4 @@
-const summonersProduction = [
+const summonersProduction: ReadonlyArray<RiotGamesAPI.Account.AccountDto> = [
   {
     puuid:
       "r4DInSgwXlDzlT47664_Y4Pglepd54TFP3Q3kQBtDG6sxlKPQET0F50rMSzjkxqwbTd1TbHrgrJwpQ",
@@ -31,7 +31,7 @@ const summonersProduction = [
   },
 ];
 
-const summonersDevelopment = [
+const summonersDevelopment: ReadonlyArray<RiotGamesAPI.Account.AccountDto> = [
   {
     puuid:
       "liKJfo-x731BY15LwmXbqtNU3QskHEGkwwAbOzr64pwIr03q7eq3-Q2TrkO0dUxY1OIUBa3A_WnM-w",
