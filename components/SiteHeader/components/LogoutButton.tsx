@@ -6,17 +6,18 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "../../ui/button";
 
-export function LogoutButton({
+export function DisconnectButton({
   className,
 }: {
   className?: string | undefined;
 }) {
-  const [loggingOut, setLoggingOut] = useState(false);
   const supabase = createClient();
   const router = useRouter();
 
+  const [disconnecting, setDisconnecting] = useState(false);
+
   const handlerLogout = async () => {
-    setLoggingOut(true);
+    setDisconnecting(true);
 
     await supabase.auth.signOut();
 
@@ -27,7 +28,7 @@ export function LogoutButton({
     <Button
       className={cn(className)}
       onClick={handlerLogout}
-      disabled={loggingOut}
+      disabled={disconnecting}
     >
       Disconnect
     </Button>

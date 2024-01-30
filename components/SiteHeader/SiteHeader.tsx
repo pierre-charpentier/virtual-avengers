@@ -1,9 +1,16 @@
+import { Button } from "@/components/ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { createClient as createServerClient } from "@/lib/supabase/server";
+import { PersonIcon } from "@radix-ui/react-icons";
+import { User } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 import Link from "next/link";
-import { Button } from "../ui/button";
 import ClashPopover from "./components/ClashPopover";
-import { LogoutButton } from "./components/LogoutButton";
+import { DisconnectButton } from "./components/LogoutButton";
 
 export default async function SiteHeader() {
   const cookiesStore = cookies();
@@ -25,10 +32,7 @@ export default async function SiteHeader() {
         <div className="flex flex-1 justify-end space-x-2">
           <nav className="flex items-center">
             {user ? (
-              <>
-                <span className="mr-4">{user.email}</span>
-                <LogoutButton />
-              </>
+              <AccountPopover user={user} />
             ) : (
               <Link href="/login">
                 <Button>Connect</Button>
@@ -38,5 +42,24 @@ export default async function SiteHeader() {
         </div>
       </div>
     </header>
+  );
+}
+
+async function AccountPopover({ user }: { user: User }) {
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button variant="default" className="sm:ml-4 rounded-full" size="icon">
+          <PersonIcon className="h-5 w-5" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent>
+        <h3 className="text-2xl font-semibold tracking-tight">Account</h3>
+        <p className="mb-4">{user.email}</p>
+        <div className="text-right">
+          <DisconnectButton />
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 }

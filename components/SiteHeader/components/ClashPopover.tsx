@@ -1,20 +1,30 @@
 import { getTournaments } from "@/lib/riot-games-api";
 import { format } from "date-fns";
-import { Button } from "../../ui/button";
-import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
+import { Button } from "@/components/ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 export default async function ClashPopover() {
   const tournaments = await getTournaments();
 
+  const atleastOnTournamentScheduled =
+    Array.isArray(tournaments) && tournaments.length > 0;
+
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="secondary" className="sm:ml-4">
+        <Button
+          variant={atleastOnTournamentScheduled ? "default" : "secondary"}
+          className="sm:ml-4"
+        >
           Clash
         </Button>
       </PopoverTrigger>
       <PopoverContent>
-        {!Array.isArray(tournaments) || tournaments.length === 0 ? (
+        {!atleastOnTournamentScheduled ? (
           <p className="text-neutral-500">No clashes scheduled</p>
         ) : (
           tournaments.map((tournament) => (
