@@ -1,8 +1,10 @@
+import { ThemeProvider } from "@/components/ThemeProvider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+
 import "@/app/globals.css";
-import { ThemeProvider } from "@/components/ThemeProvider";
 import SiteHeader from "@/components/SiteHeader/SiteHeader";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,6 +29,7 @@ export default function RootLayout({
         >
           <SiteHeader />
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
