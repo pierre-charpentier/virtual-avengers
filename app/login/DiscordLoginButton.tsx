@@ -1,7 +1,7 @@
 "use client";
 
 import { createClient } from "@/lib/supabase/client";
-import { Button } from "./ui/button";
+import { Button } from "../../components/ui/button";
 import { DiscordLogoIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
 

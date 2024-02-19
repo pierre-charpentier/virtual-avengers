@@ -1,7 +1,8 @@
-import DiscordLoginButton from "@/components/DiscordLoginButton";
 import { createClient } from "@/lib/supabase/server";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+
+import DiscordLoginButton from "@/app/login/DiscordLoginButton";
 
 export default async function LoginPage() {
   const supabase = createClient(cookies());
