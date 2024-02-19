@@ -37,7 +37,7 @@ export async function SummonerCard({
     <Card>
       <CardHeader className="border-b">
         <a
-          href={`https://www.op.gg/summoners/euw/${summonerData.name}`}
+          href={`https://www.op.gg/summoners/euw/${summonerData.name}-${tagLine}`}
           target="_blank"
           className="z-10 scroll-m-20 text-2xl font-semibold tracking-tight first:mt-0"
         >
@@ -58,6 +58,7 @@ export async function SummonerCard({
             width={640}
             height={360}
             className="relative mt-4 box-border w-32 h-32 object-cover scale-[250%] mr-auto ml-auto"
+            priority={true}
           />
         ) : null}
         <div className="grid grid-rows-2 gap-5">
