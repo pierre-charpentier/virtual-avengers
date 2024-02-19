@@ -1,24 +1,32 @@
 import { Button } from "@/components/ui/button";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { createClient as createServerClient } from "@/lib/supabase/server";
-import { PersonIcon } from "@radix-ui/react-icons";
-import { User } from "@supabase/supabase-js";
+import { createClient } from "@/lib/supabase/server";
 import { cookies } from "next/headers";
 import Link from "next/link";
+
+import { ProfileSheet } from "./components/ProfileSheet/ProfileSheet";
 import ClashPopover from "./components/ClashPopover";
-import { DisconnectButton } from "./components/LogoutButton";
+import { Tables } from "@/types/supabase";
 
 export default async function SiteHeader() {
   const cookiesStore = cookies();
-  const supabase = createServerClient(cookiesStore);
+  const supabase = createClient(cookiesStore);
 
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  let player: Tables<"player"> | null = null;
+
+  if (session?.user) {
+    const playerQueryResponse = await supabase
+      .from("player")
+      .select("*")
+      .eq("user_uuid", session.user.id)
+      .limit(1)
+      .single();
+
+    player = playerQueryResponse.data;
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 py-6 sm:py-auto">
@@ -28,38 +36,24 @@ export default async function SiteHeader() {
             Virtual Avengers
           </span>
         </Link>
-        <ClashPopover />
+        {session?.user ? (
+          <Link href="/planning">
+            <span className="ml-6">Planning</span>
+          </Link>
+        ) : null}
         <div className="flex flex-1 justify-end space-x-2">
+          <ClashPopover />
           <nav className="flex items-center">
-            {user ? (
-              <AccountPopover user={user} />
+            {player ? (
+              <ProfileSheet player={player} />
             ) : (
               <Link href="/login">
-                <Button>Connect</Button>
+                <Button className="ml-4">Connect</Button>
               </Link>
             )}
           </nav>
         </div>
       </div>
     </header>
-  );
-}
-
-async function AccountPopover({ user }: { user: User }) {
-  return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <Button variant="default" className="sm:ml-4 rounded-full" size="icon">
-          <PersonIcon className="h-5 w-5" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent>
-        <h3 className="text-2xl font-semibold tracking-tight">Account</h3>
-        <p className="mb-4">{user.email}</p>
-        <div className="text-right">
-          <DisconnectButton />
-        </div>
-      </PopoverContent>
-    </Popover>
   );
 }

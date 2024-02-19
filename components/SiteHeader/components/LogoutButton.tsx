@@ -29,6 +29,7 @@ export function DisconnectButton({
       className={cn(className)}
       onClick={handlerLogout}
       disabled={disconnecting}
+      variant="destructive"
     >
       Disconnect
     </Button>
