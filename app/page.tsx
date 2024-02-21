@@ -6,9 +6,6 @@ export default async function Home() {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
   const { data: players } = await supabase
     .from("player")
     .select("*")

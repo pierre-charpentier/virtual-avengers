@@ -10,8 +10,9 @@ import {
   getSummonerDataFromPuuid,
 } from "@/lib/riot-games-api";
 import Image from "next/image";
-import emblemImages from "./emblemImages";
+
 import { ArrowTopRightIcon } from "@radix-ui/react-icons";
+import emblemImages from "./emblemImages";
 
 export async function SummonerCard({
   gameName,
