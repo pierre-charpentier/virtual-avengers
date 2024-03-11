@@ -38,11 +38,12 @@ export default async function Planning() {
     .fill("*")
     .map((_, index) => addDays(today, index));
 
+  // Retrieve planning data for the next 7 days (today included)
   const { data: planningData } = await supabase
     .from("planning")
     .select("player_uuid, date, available")
     .in("player_uuid", players?.map((p) => p.uuid) || [])
-    .gt("date", new Date().toISOString());
+    .gte("date", new Date().toISOString());
 
   return (
     <main className="w-11/12 2xl:w-3/4 mx-auto marker:mt-6 mt-6 md:mt-12 2xl:mt-24">
