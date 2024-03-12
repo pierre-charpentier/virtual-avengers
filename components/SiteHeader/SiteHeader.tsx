@@ -39,6 +39,11 @@ export default async function SiteHeader() {
             Planning
           </Link>
         ) : null}
+        {session?.user ? (
+          <Link href="/drafting" className="ml-6 sm:inline-block">
+            Drafting
+          </Link>
+        ) : null}
         <div className="flex flex-1 justify-end space-x-2">
           <ClashPopover />
           <nav className="flex items-center">

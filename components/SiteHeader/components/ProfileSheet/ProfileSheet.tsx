@@ -26,7 +26,7 @@ import { useForm } from "react-hook-form";
 import { DisconnectButton } from "../LogoutButton";
 import { handleProfileFormSubmission } from "./actions";
 import { toast } from "sonner";
-import { useFormStatus } from "react-dom";
+import { MultiSelect } from "@/components/ui/multi-select";
 
 export const profileFormSchema = z.object({
   gameName: z.string().min(3, {
@@ -36,7 +36,15 @@ export const profileFormSchema = z.object({
     message: "Tag line must be at least 3 characters.",
   }),
   playerUuid: z.string().uuid(),
+  championPool: z
+    .array(z.object({ value: z.string().min(1), label: z.string().min(1) }))
+    .nullable(),
 });
+
+const champions = [
+  { value: "JarvanIV", label: "Jarvan IV" },
+  { value: "Ahri", label: "Ahri" },
+];
 
 export type profileFormType = z.infer<typeof profileFormSchema>;
 
@@ -47,6 +55,9 @@ export function ProfileSheet({ player }: { player: Tables<"player"> }) {
       gameName: player.game_name,
       tagLine: player.tag_line,
       playerUuid: player.uuid,
+      championPool: champions.filter((c) =>
+        player.champion_pool ? player.champion_pool.includes(c.value) : false
+      ),
     },
   });
 
@@ -82,6 +93,7 @@ export function ProfileSheet({ player }: { player: Tables<"player"> }) {
                 gameName: profileFormResponse.gameName,
                 playerUuid: player.uuid,
                 tagLine: profileFormResponse.tagLine,
+                championPool: profileFormResponse.championPool,
               });
             })}
           >
@@ -110,6 +122,25 @@ export function ProfileSheet({ player }: { player: Tables<"player"> }) {
                         #
                       </span>
                       <Input placeholder="EUW" className="pl-10" {...field} />
+                    </div>
+                  </FormControl>
+                  <FormMessage>{fieldState.error?.message}</FormMessage>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="championPool"
+              render={({ field, fieldState }) => (
+                <FormItem className="mb-4">
+                  <FormLabel>Champion Pool</FormLabel>
+                  <FormControl>
+                    <div>
+                      <MultiSelect
+                        options={champions}
+                        selected={field.value ?? []}
+                        {...field}
+                      />
                     </div>
                   </FormControl>
                   <FormMessage>{fieldState.error?.message}</FormMessage>

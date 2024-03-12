@@ -10,6 +10,7 @@ export async function handleProfileFormSubmission({
   gameName,
   tagLine,
   playerUuid,
+  championPool,
 }: profileFormType) {
   const riotAccount = await getAccountByRiotId(gameName, tagLine);
 
@@ -35,6 +36,7 @@ export async function handleProfileFormSubmission({
       game_name: gameName,
       tag_line: tagLine,
       puuid: riotAccount.puuid,
+      champion_pool: championPool ? championPool.map((c) => c.value) : null,
     })
     .eq("uuid", playerUuid)
     .eq("user_uuid", user.id);
@@ -49,5 +51,6 @@ export async function handleProfileFormSubmission({
     error: undefined,
     gameName,
     tagLine,
+    championPool,
   };
 }
