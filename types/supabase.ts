@@ -43,6 +43,7 @@ export type Database = {
       }
       player: {
         Row: {
+          champion_pool: string[] | null
           created_at: string
           game_name: string
           puuid: string
@@ -52,6 +53,7 @@ export type Database = {
           uuid: string
         }
         Insert: {
+          champion_pool?: string[] | null
           created_at?: string
           game_name?: string
           puuid: string
@@ -61,6 +63,7 @@ export type Database = {
           uuid?: string
         }
         Update: {
+          champion_pool?: string[] | null
           created_at?: string
           game_name?: string
           puuid?: string
